@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+
+  <style>
+    body{
+      font-family: Arial;
+      background-color: rgb(25,25,25);
+    }
+  
+    .rps{
+      color: white;
+      margin: 10px 0px;
+      padding: 10px;
+    }
+    .budiv{
+      margin: 0 auto;
+      text-align: center;
+    }
+    .gbt{
+      font-size: 3.5rem;
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 100000rem;
+      /* min-width: 7rem;
+      padding: 20px 18px ;
+      padding-bottom: 20px; */
+      width: 120px;
+      height: 120px;
+      margin: 3px;
+    }
+    .reb{
+      background-color: white;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 600px) {
+      .gbt{
+        width: 6rem;
+        height: 6rem;
+      }
+      .budiv{
+        display: flex;
+        justify-content: space-around;
+      }
+      .reb{
+        justify-self: center;
+        display: flex;
+        border-radius: 5px 10px;
+        background-color: blue;
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 3rem;
+        margin-top: 2rem;
+      }
+    }
+  </style>
+
+</head>
+<body>
+    <div class="rps">
+      <p style="font-size: 30px; font-weight: bold;">Welcome to Riko's Rock Paper scissors 🙉</p>
+      <p>Tap to Play</p>
+      <div class="budiv"> 
+        <button class="gbt"
+          onclick="playgame('rock')
+          // alert(`You picked rock. I picked ${como+'. '+result}.`)">
+            ✊ </button>
+
+        <button class="gbt"
+          onclick="playgame('paper')">
+            🖐</button>
+
+        <button class="gbt"
+          onclick="
+          playgame('scissors')">
+            ✌</button>
+      </div> 
+      <p class="js-rez"></p>
+      <p class="js-moves"></p>
+      <p class="js-score"></p>
+
+      <button class="reb" onclick="
+        score.wins = 0; score.losses = 0; score.ties = 0;
+        localStorage.removeItem('score');
+        upse()
+        document.querySelector('.js-moves').innerHTML ='' ">Reset</button>
+      
+      <a style="color: rgb(42, 89, 190); margin-top: 23rem;" href="">Click Here to View Code</a>
+
+  </div>
+
+  <script>
+    alert('You can turn off your internet connection after the page has been loaded.') 
+    let score = JSON.parse(localStorage.getItem('score')) || {
+      wins : 0,
+      losses : 0,
+      ties: 0
+    };
+    upse()
+    let cpic ='';
+    function playgame(playermove) {
+      const como = pickm()
+      // console.log(como)
+      let result = '';
+
+      if (playermove == 'scissors') {
+        pic = '✌'
+        if (como ==='Rock'){
+          result =  'You lose';
+        }else if (como === 'Paper'){
+            result = 'You win';
+        }else{
+          result = 'Tie';
+        }
+
+      }else if (playermove == 'paper') {
+        pic = '🖐'
+        if (como ==='Rock'){
+          result =  'You win';
+        }else if (como === 'Paper'){
+            result = 'Tie';
+        }else{
+          result = 'You lose';
+        }
+
+      }else if (playermove === 'rock') {
+        pic= '✊'
+        if (como ==='Rock'){
+          result =  'Tie';
+        }else if (como === 'Paper'){
+            result = 'You lose';
+        }else{
+          result = 'You win';
+        }
+      }
+      
+      if (result === 'You win') {
+        score.wins++
+      }else if (result === 'You lose'){
+        score.losses++
+      }else{
+        score.ties++
+      }
+
+      localStorage.setItem('score',JSON.stringify(score))
+      console.log('now json string')
+      console.log(localStorage.getItem('score',JSON.stringify(score)))
+      upse()
+
+      document.querySelector('.js-rez').innerHTML = result;
+      document.querySelector('.js-moves').innerHTML = `You <button class="gbt" style="border: none; width: 80px;" >${pic}</button> <button class = 'gbt' style="border: none; width: 80px;">${cpic}</button> Me`;
+    //         alert(`You picked ${playermove}. I picked ${como+'. '+result}.
+    // Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`)
+    }
+    function pickm (){
+      let como = '';
+      const rand = Math.random()
+      
+      
+      if (rand >= 0 && rand< 1/3)  {
+        como = 'Rock'
+        cpic = '✊'
+
+        }else if(rand >= 1/3 && rand< 2/3){
+          como = 'Scissors'
+          cpic = '✌'
+        }else{
+          como = 'Paper'
+          cpic = '🖐'
+        }
+        
+      return como;
+    }
+    function upse() {
+      document.querySelector('.js-score').innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`
+    }
+
+  </script>
+</body>
+</html>
